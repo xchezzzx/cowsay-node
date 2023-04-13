@@ -3,19 +3,21 @@ pipeline {
     tools {nodejs "NodeJS19"}
     stages {
      
-    stage('Build') {
-        steps {
-            dir('code') {
-                sh 'npm install'   
+        stage('Build') {
+            steps {
+                dir('code') {
+                    sh 'npm install'   
+                }
             }
         }
-    }
 
-    stage('Start the app') {
-        steps {
-            sh 'npm start'
+        stage('Start the app') {
+            steps {
+                dir('code') {
+                    sh 'npm start'
+                }
+            }
         }
-    }
 
-  }
+    }
 }
