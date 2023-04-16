@@ -10,16 +10,12 @@ pipeline {
                 dir('code') {
                     sh 'npm install'   
                 }
-                try {
-                    slackSend(
+                slackSend(
                     channel: '#general',
                     color: 'good',
                     message: "Step ${currentBuild.fullDisplayName} succeeded!",
-                    tokenCredentialId: 'slack-token'
+                    token: 'slack-token'
                 )
-                } catch (Exception e) {
-                    echo "Error while sending Slack notification: ${e.message}"
-                }
             }
         }
 
