@@ -13,22 +13,20 @@ pipeline {
             }
         }
 
-        stages {
-          stage("build & SonarQube analysis") {
+        stage("build & SonarQube analysis") {
             agent any
             steps {
-              withSonarQubeEnv('SonarQube Server Test') {
+                withSonarQubeEnv('SonarQube Server Test') {
                 sh 'mvn clean package sonar:sonar'
-              }
+                }
             }
-          }
-          stage("Quality Gate") {
+        }
+        stage("Quality Gate") {
             steps {
-              timeout(time: 1, unit: 'HOURS') {
+                timeout(time: 1, unit: 'HOURS') {
                 waitForQualityGate abortPipeline: true
-              }
+                }
             }
-          }
         }
 
         // stage('Start the app') {
