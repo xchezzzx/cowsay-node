@@ -5,7 +5,7 @@ pipeline {
     tools {nodejs "NodeJS19"}
     stages {
      
-        stage('Build') {
+        stage('Install dependencies') {
             steps {
                 dir('code') {
                     sh 'npm install'   
@@ -13,7 +13,7 @@ pipeline {
             }
         }
 
-        stage("build & SonarQube analysis") {
+        stage('SonarQube analysis') {
             agent any
             steps {
                 withSonarQubeEnv('SonarQube Server Test') {
@@ -21,7 +21,7 @@ pipeline {
                 }
             }
         }
-        stage("Quality Gate") {
+        stage('Quality Gate') {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
                 waitForQualityGate abortPipeline: true
