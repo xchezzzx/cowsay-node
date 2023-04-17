@@ -16,16 +16,28 @@ pipeline {
             }
         }
 
+        // stage('SonarQube analysis') {
+        //     agent any
+        //     steps {
+        //         dir('code') {
+        //             withSonarQubeEnv('sonarqube-10.0') {
+        //             sh "mvn clean package sonar:sonar"
+        //             }
+        //         }
+        //     }
+        // }
+
         stage('SonarQube analysis') {
-            agent any
             steps {
-                dir('code') {
-                    withSonarQubeEnv('sonarqube-10.0') {
-                    sh "mvn clean package sonar:sonar"
+                script {
+                    def scannerHome = tool 'SonarQubeScanner-4.8.0';
+                    withSonarQubeEnv('sonarqube-10.0') { 
+                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=cowsay-ex"
                     }
                 }
             }
         }
+
         stage('Quality Gate') {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
