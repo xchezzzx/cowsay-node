@@ -13,12 +13,6 @@ pipeline {
                 dir('code') {
                     sh 'npm install'   
                 }
-                slackSend(
-                    channel: '#general',
-                    color: 'good',
-                    message: "Step ${currentBuild.fullDisplayName} succeeded!",
-                    token: 'slack-token'
-                )
             }
         }
 
@@ -27,7 +21,7 @@ pipeline {
             steps {
                 dir('code') {
                     withSonarQubeEnv('sonarqube-10.0') {
-                    sh 'mvn clean package sonar:sonar'
+                    sh "mvn clean package sonar:sonar"
                     }
                 }
             }
@@ -37,6 +31,17 @@ pipeline {
                 timeout(time: 1, unit: 'HOURS') {
                 waitForQualityGate abortPipeline: true
                 }
+            }
+        }
+
+        stage('Sending notification') {
+            steps {
+                slackSend(
+                    channel: '#general',
+                    color: 'good',
+                    message: "Step ${currentBuild.fullDisplayName} succeeded!",
+                    token: 'slack-token'
+                )
             }
         }
 
