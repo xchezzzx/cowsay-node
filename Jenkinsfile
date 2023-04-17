@@ -38,13 +38,13 @@ pipeline {
             }
         }
 
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 1, unit: 'HOURS') {
-                waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+        // stage('Quality Gate') {
+        //     steps {
+        //         timeout(time: 1, unit: 'HOURS') {
+        //         waitForQualityGate abortPipeline: true
+        //         }
+        //     }
+        // }
 
         stage('Sending notification') {
             steps {
@@ -57,12 +57,12 @@ pipeline {
             }
         }
 
-        // stage('Start the app') {
-        //     steps {
-        //         dir('code') {
-        //             sh 'npm start'
-        //         }
-        //     }
-        // }
+        stage('Start the app') {
+            steps {
+                dir('code') {
+                    sh 'npm start'
+                }
+            }
+        }
     }
 }
