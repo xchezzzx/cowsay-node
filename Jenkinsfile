@@ -16,6 +16,16 @@ pipeline {
             }
         }
 
+
+        stage('Get Git Branch') {
+            steps {
+                script {
+                    def branchName = env.GIT_BRANCH
+                    echo "Git Branch: ${branchName}"
+                }
+            }
+        }
+
         // stage('SonarQube analysis') {
         //     agent any
         //     steps {
