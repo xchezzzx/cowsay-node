@@ -61,6 +61,8 @@ pipeline {
             steps {
                 dir('code') {
                     sh 'npm start'
+                    sh 'sleep 1'
+                    sh 'fuser -k 8081/tcp'
                 }
             }
         }
