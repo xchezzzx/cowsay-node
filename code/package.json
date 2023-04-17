@@ -5,7 +5,7 @@
   "author": "Cassi Lup <cassi.lup@gmail.com>",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js &"
   },
   "dependencies": {
     "@types/node": "^10.12.11",
