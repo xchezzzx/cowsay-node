@@ -22,7 +22,7 @@ pipeline {
         stage('SonarQube analysis') {
             agent any
             steps {
-                withSonarQubeEnv('SonarQube Server Test') {
+                withSonarQubeEnv('sonarqube-10.0') {
                 sh 'mvn clean package sonar:sonar'
                 }
             }
@@ -42,6 +42,5 @@ pipeline {
         //         }
         //     }
         // }
-
     }
 }
