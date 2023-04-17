@@ -2,7 +2,10 @@
 
 pipeline {
     agent any
-    tools {nodejs "NodeJS19"}
+    tools {
+        nodejs "NodeJS19"
+        maven 'M2'
+        }
     stages {
      
         stage('Install dependencies') {
